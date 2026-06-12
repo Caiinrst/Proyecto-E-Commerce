@@ -1,0 +1,198 @@
+<div class="profile-page">
+
+  <!-- Hero banner -->
+  <div class="profile-banner">
+    <div class="avatar-ring">
+      <div class="avatar">
+        {{ userInitial }}
+      </div>
+    </div>
+    <div class="banner-info">
+      <h1>🦸 {{ currentName || 'Mi Perfil' }}</h1>
+      <span class="email-pill">{{ currentEmail }}</span>
+    </div>
+  </div>
+
+  <!-- Tarjeta principal -->
+  <div class="profile-card">
+
+    <!-- Sección de datos personales -->
+    <section class="profile-section">
+      <div class="section-header">
+        <h3 class="section-title">👤 Datos de cuenta</h3>
+        @if (!editingProfile) {
+          <button class="btn-edit-toggle" (click)="startEditProfile()">✏️ Editar</button>
+        }
+      </div>
+
+      @if (!editingProfile) {
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Nombre</label>
+            <p>{{ currentName }}</p>
+          </div>
+          <div class="info-item">
+            <label>Correo electrónico</label>
+            <p>{{ currentEmail }}</p>
+          </div>
+        </div>
+      } @else {
+        <!-- Formulario edición -->
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="edit-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" formControlName="nombre" placeholder="Tu nombre" />
+              <span class="field-error" *ngIf="profileForm.get('nombre')?.invalid && profileForm.get('nombre')?.touched">
+                Mínimo 2 caracteres
+              </span>
+            </div>
+            <div class="form-group">
+              <label>Correo electrónico</label>
+              <input type="email" formControlName="email" placeholder="tu@email.com" />
+              <span class="field-error" *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+                Correo inválido
+              </span>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-save" [disabled]="profileForm.invalid || savingProfile">
+              {{ savingProfile ? '⏳ Guardando...' : '💾 Guardar cambios' }}
+            </button>
+            <button type="button" class="btn-cancel" (click)="cancelEditProfile()">Cancelar</button>
+          </div>
+        </form>
+      }
+    </section>
+
+    <hr class="divider" />
+
+    <!-- Sección cambio de contraseña -->
+    <section class="profile-section">
+      <div class="section-header">
+        <h3 class="section-title">🔐 Cambiar contraseña</h3>
+        @if (!editingPassword) {
+          <button class="btn-edit-toggle" (click)="startEditPassword()">✏️ Cambiar</button>
+        }
+      </div>
+
+      @if (!editingPassword) {
+        <p class="muted-hint">••••••••••••</p>
+      } @else {
+        <!-- Formulario edición contraseña -->
+        <form [formGroup]="passwordForm" (ngSubmit)="savePassword()" class="edit-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Contraseña actual</label>
+              <input type="password" formControlName="currentPassword" placeholder="••••••••" />
+              <span class="field-error" *ngIf="passwordForm.get('currentPassword')?.invalid && passwordForm.get('currentPassword')?.touched">
+                Requerido
+              </span>
+            </div>
+            <div class="form-group">
+              <label>Nueva contraseña</label>
+              <input type="password" formControlName="newPassword" placeholder="Mínimo 6 caracteres" />
+              <span class="field-error" *ngIf="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched">
+                Mínimo 6 caracteres
+              </span>
+            </div>
+            <div class="form-group">
+              <label>Confirmar contraseña</label>
+              <input type="password" formControlName="confirmPassword" placeholder="Repite la nueva contraseña" />
+              <span class="field-error" *ngIf="passwordMismatch && passwordForm.get('confirmPassword')?.touched">
+                Las contraseñas no coinciden
+              </span>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-save" [disabled]="passwordForm.invalid || passwordMismatch || savingPassword">
+              {{ savingPassword ? '⏳ Guardando...' : '💾 Actualizar contraseña' }}
+            </button>
+            <button type="button" class="btn-cancel" (click)="cancelEditPassword()">Cancelar</button>
+          </div>
+        </form>
+      }
+    </section>
+
+    <hr class="divider" />
+
+    <!-- Sección favoritos -->
+    <section class="profile-section">
+      <div class="section-header">
+        <h3 class="section-title">❤️ Mis favoritos</h3>
+      </div>
+
+      @if (loadingFavs) {
+        <p class="muted-hint">Cargando...</p>
+      } @else if (favorites.length === 0) {
+        <p class="muted-hint">Aún no tienes héroes favoritos.</p>
+      } @else {
+        <div class="fav-wrapper">
+          <div class="fav-chips">
+            @for (fav of favorites; track fav.id) {
+              <div class="fav-chip">
+                <img [src]="'assets/images/' + fav.imagen_url" [alt]="fav.nombre" (error)="onImgError($event)" />
+                <span>{{ fav.nombre }}</span>
+              </div>
+            }
+          </div>
+          <p class="fav-count">{{ favorites.length }} héroe{{ favorites.length !== 1 ? 's' : '' }} guardado{{ favorites.length !== 1 ? 's' : '' }}</p>
+        </div>
+      }
+    </section>
+
+    <hr class="divider" />
+
+    <!-- Sección historial de pedidos -->
+    <section class="profile-section">
+      <div class="section-header">
+        <h3 class="section-title">📦 Historial de Pedidos</h3>
+      </div>
+
+      @if (loadingOrders) {
+        <p class="muted-hint">Cargando tus pedidos...</p>
+      } @else if (orders.length === 0) {
+        <p class="muted-hint">Aún no has realizado ninguna compra de Mechas.</p>
+      } @else {
+        <div class="orders-list">
+          @for (order of orders; track order.id) {
+            <div class="order-card">
+              <div class="order-header">
+                <span class="order-id">Pedido #{{ order.id }}</span>
+                <span class="order-date">{{ order.created_at | date:'dd/MM/yyyy HH:mm' }}</span>
+                <span class="order-total">Total: {{ order.total | currency:'USD' }}</span>
+              </div>
+              <div class="order-items">
+                @for (item of order.items; track item.mechaId) {
+                  <div class="order-item">
+                    <img [src]="item.imagen_url ? 'assets/images/' + (item.imagen_url.startsWith('/') ? item.imagen_url.substring(1) : item.imagen_url) : 'assets/images/Placeholder.png'" [alt]="item.nombre" (error)="onImgError($event)" class="order-item-img" />
+                    <div class="order-item-details">
+                      <span class="order-item-name">{{ item.nombre }}</span>
+                      <span class="order-item-qty">Cant: {{ item.cantidad }} × {{ item.precioUnitario | currency:'USD' }}</span>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </section>
+
+    <hr class="divider" />
+
+    <!-- Zona de peligro -->
+    <section class="profile-section danger-zone">
+      <div class="section-header">
+        <h3 class="section-title">⚠️ Sesión</h3>
+      </div>
+      <p class="muted-hint">Cerrar tu sesión terminará tu acceso inmediato.</p>
+      <div class="danger-actions">
+        <button class="btn-logout" (click)="logout()">🚪 Cerrar sesión</button>
+      </div>
+    </section>
+
+  </div>
+</div>

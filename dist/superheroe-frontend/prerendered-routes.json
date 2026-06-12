@@ -1,0 +1,12 @@
+{
+  "routes": {
+    "/about": {},
+    "/add-hero": {},
+    "/carrito": {},
+    "/catalog": {},
+    "/favoritos": {},
+    "/login": {},
+    "/profile": {},
+    "/user-registration": {}
+  }
+}

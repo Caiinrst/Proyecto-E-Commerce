@@ -1,0 +1,74 @@
+<div class="add-hero-container">
+  <div class="form-header">
+    <h3>🛡️ Reclutar Nuevo Defensor</h3>
+    <p>Completa los datos para añadir un héroe a la liga.</p>
+  </div>
+
+  <div class="main-layout">
+    <!-- Previsualización -->
+    <div class="preview-section">
+      <div class="preview-card">
+        <div class="image-container">
+          <img [src]="fullImagePath" alt="Vista previa">
+        </div>
+        <div class="preview-info">
+          <h4>{{ heroData.nombre || 'Nombre del Héroe' }}</h4>
+          <span>{{ heroData.poder || 'Superpoder' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <form (ngSubmit)="onSubmit()" #heroForm="ngForm" class="hero-form">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="heroData.nombre" name="nombre" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Superpoder</label>
+          <input type="text" [(ngModel)]="heroData.poder" name="poder" required>
+        </div>
+        <div class="form-group">
+          <label>Fortaleza</label>
+          <input type="text" [(ngModel)]="heroData.fortaleza" name="fortaleza" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Resistencia</label>
+          <input type="text" [(ngModel)]="heroData.resistencia" name="resistencia" required>
+        </div>
+        <div class="form-group">
+          <label>Debilidad</label>
+          <input type="text" [(ngModel)]="heroData.debilidad" name="debilidad" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Precio ($ USD)</label>
+          <input type="number" step="0.01" [(ngModel)]="heroData.precio" name="precio" required min="0">
+        </div>
+        <div class="form-group">
+          <label>Existencias (Stock)</label>
+          <input type="number" [(ngModel)]="heroData.stock" name="stock" required min="0">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Seleccionar Imagen del Repositorio Local</label>
+        <div class="custom-file-upload">
+          <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+          <button type="button" class="btn-browse" (click)="fileInput.click()">🔍 Buscar en assets/images</button>
+          <span class="file-name" *ngIf="fileNameSelected">📄 {{ fileNameSelected }}</span>
+        </div>
+        <small>Nota: La imagen debe existir físicamente en <code>src/assets/images/</code></small>
+      </div>
+
+      <button type="submit" [disabled]="!heroForm.valid" class="btn-submit">🚀 Guardar Héroe</button>
+    </form>
+  </div>
+</div>

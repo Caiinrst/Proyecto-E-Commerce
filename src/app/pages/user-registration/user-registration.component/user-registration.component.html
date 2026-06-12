@@ -1,0 +1,52 @@
+<div class="registration-container">
+  <h2 class="registration-title">🦸‍♀️ Registro de Héroe</h2>
+  <p class="registration-subtitle">Crea tu cuenta para unirte al universo de superhéroes.</p>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="hero-form">
+    <!-- Nombre -->
+    <div class="form-group">
+      <label>Nombre Completo</label>
+      <div class="input-wrapper">
+        <span class="icon">👤</span>
+        <input type="text" formControlName="nombre" placeholder="Ej. Bruce Wayne">
+      </div>
+      <span class="error" *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
+        ⚠️ El nombre es requerido (mín. 3 caracteres).
+      </span>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label>Correo Electrónico</label>
+      <div class="input-wrapper">
+        <span class="icon">📧</span>
+        <input type="email" formControlName="email" placeholder="heroe@justiceleague.com">
+      </div>
+      <span class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        ⚠️ Ingresa un correo válido.
+      </span>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label>Contraseña</label>
+      <div class="input-wrapper">
+        <span class="icon">🔒</span>
+        <input type="password" formControlName="password" placeholder="******">
+      </div>
+      <span class="error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        ⚠️ Mínimo 6 caracteres.
+      </span>
+    </div>
+
+    <!-- Botón -->
+    <button type="submit" [disabled]="registerForm.invalid" class="btn-submit">
+      🚀 Crear Cuenta
+    </button>
+
+    <!-- Feedback -->
+    <div *ngIf="message" [ngClass]="{'msg-success': !isError, 'msg-error': isError}" class="feedback">
+      {{ message }}
+    </div>
+  </form>
+</div>

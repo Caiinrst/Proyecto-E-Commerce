@@ -1,0 +1,54 @@
+<nav class="navbar">
+  <div class="container">
+    <!-- Logo -->
+    <div class="logo" routerLink="/catalog">
+      <span class="icon">🤖</span>
+      <strong>MechaStore</strong>
+    </div>
+
+    <!-- Menú principal -->
+    <nav class="menu">
+      <a routerLink="/catalog" routerLinkActive="active" class="menu-item">🤖 Catálogo</a>
+      <a routerLink="/carrito" routerLinkActive="active" class="menu-item cart-btn-nav">
+        🛒 Carrito
+        @if (cartService.getTotalCount() > 0) {
+          <span class="cart-badge">{{ cartService.getTotalCount() }}</span>
+        }
+      </a>
+
+      @if (!authService.currentUser()) {
+        <a routerLink="/user-registration" routerLinkActive="active" class="menu-item">📝 Registrarse</a>
+        <button routerLink="/login" class="btn-login">🔑 Iniciar Sesión</button>
+      } @else {
+        <a routerLink="/add-hero" class="btn-nav">➕ Añadir Mecha</a>
+        <a routerLink="/favoritos" routerLinkActive="active" class="menu-item">❤️ Mis Favoritos</a>
+        <a routerLink="/profile" routerLinkActive="active" class="menu-item">👤 Mi Perfil</a>
+
+        <div class="user-info">
+          <span class="user-welcome">👋 Hola, {{ authService.currentUser()?.nombre }}</span>
+          <button (click)="logout()" class="btn-logout">🚪 Cerrar Sesión</button>
+        </div>
+      }
+    </nav>
+  </div>
+</nav>
+
+<!-- Contenido principal -->
+<main class="content-area">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Footer -->
+<footer class="main-footer">
+  <p>&copy; 2026 MechaStore - Figuras de Acción Premium de Robots Gigantes Pilotados</p>
+  <p>✨ Desarrollado con Angular, Express y SQLite ✨</p>
+</footer>
+
+<!-- Notificaciones estilo cómic -->
+@if (notify.message()) {
+  <div class="comic-toast" [ngClass]="notify.type()">
+    <div class="comic-content">
+      {{ notify.message() }}
+    </div>
+  </div>
+}

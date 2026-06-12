@@ -1,0 +1,85 @@
+<div class="cart-page">
+  <div class="cart-header">
+    <h1>🛒 Tu Hangar de Compras</h1>
+    <p>Revisa y confirma las figuras de acción de Mechas que añadirás a tu colección.</p>
+  </div>
+
+  @if (items.length === 0) {
+    <div class="empty-cart-card">
+      <span class="empty-icon">🤖</span>
+      <h2>¡Tu hangar está vacío!</h2>
+      <p>Explora el catálogo y añade figuras de acción premium a tu colección.</p>
+      <button routerLink="/catalog" class="btn-primary">Ver Catálogo de Mechas</button>
+    </div>
+  } @else {
+    <div class="cart-content">
+      <!-- Tabla de Artículos -->
+      <div class="cart-items-section">
+        @for (item of items; track item.id) {
+          <div class="cart-item-row">
+            <div class="item-img">
+              <img [src]="item.imagen_url ? 'assets/images/' + (item.imagen_url.startsWith('/') ? item.imagen_url.substring(1) : item.imagen_url) : 'assets/images/Placeholder.png'" [alt]="item.nombre" (error)="onImgError($event)" />
+            </div>
+            
+            <div class="item-details">
+              <h3>{{ item.nombre }}</h3>
+              <p class="unit-price">Precio: {{ item.precio | currency:'USD' }}</p>
+              <p class="stock-hint">Disponible: {{ item.stock }} u.</p>
+            </div>
+
+            <div class="item-qty-control">
+              <button class="btn-qty" (click)="decrementQty(item)" [disabled]="item.cantidad <= 1">-</button>
+              <span class="qty-val">{{ item.cantidad }}</span>
+              <button class="btn-qty" (click)="incrementQty(item)" [disabled]="item.cantidad >= item.stock">+</button>
+            </div>
+
+            <div class="item-subtotal">
+              <span class="subtotal-val">{{ (item.precio * item.cantidad) | currency:'USD' }}</span>
+            </div>
+
+            <div class="item-remove">
+              <button class="btn-remove" (click)="removeItem(item.id)" title="Quitar del carrito">🗑️</button>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Resumen del Pedido -->
+      <div class="cart-summary-section">
+        <div class="summary-card">
+          <h3>Resumen del Pedido</h3>
+          <hr class="summary-divider" />
+          
+          <div class="summary-row">
+            <span>Modelos seleccionados:</span>
+            <strong>{{ items.length }}</strong>
+          </div>
+          <div class="summary-row">
+            <span>Figuras totales:</span>
+            <strong>{{ count }}</strong>
+          </div>
+          <div class="summary-row">
+            <span>Envío:</span>
+            <span class="shipping-free">¡GRATIS! 🚚</span>
+          </div>
+
+          <hr class="summary-divider" />
+
+          <div class="summary-row total-row">
+            <span>Total a pagar:</span>
+            <span class="total-price">{{ total | currency:'USD' }}</span>
+          </div>
+
+          <div class="summary-actions">
+            <button class="btn-checkout" (click)="checkout()">
+              🚀 {{ isLoggedIn ? 'Confirmar Compra' : 'Inicia Sesión para Comprar' }}
+            </button>
+            <button routerLink="/catalog" class="btn-continue">
+              🤖 Seguir Explorando
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

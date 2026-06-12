@@ -1,0 +1,244 @@
+// Variables
+$primary: #2c3e50;
+$accent: #3498db;
+$danger: #e74c3c;
+$success: #27ae60;
+$warning: #f39c12;
+$light-bg: #f5f6fa;
+$dark-bg: #1a1a2e;
+$card-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+$transition: all 0.3s ease;
+
+// Backdrop
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+}
+
+// Panel principal
+.modal-panel {
+  background: #fff;
+  border-radius: 22px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: $card-shadow;
+  animation: slideUp 0.35s $transition;
+
+  &::-webkit-scrollbar { width: 6px; }
+  &::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 3px; }
+}
+
+// Header con imagen
+.modal-hero-header {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 22px 22px 0 0;
+  background: $dark-bg;
+
+  .hero-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .hero-portrait:hover {
+    transform: scale(1.05);
+  }
+
+  .header-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
+  }
+
+  .btn-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: $transition;
+    z-index: 2;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
+  }
+
+  .hero-title-block {
+    position: absolute;
+    bottom: 20px;
+    left: 24px;
+    right: 24px;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+
+    h2 {
+      color: #fff;
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin: 0;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .hero-id-badge {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+  }
+}
+
+// Stats
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1.5px solid;
+  transition: $transition;
+
+  &:hover { transform: translateY(-3px); }
+
+  .stat-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .stat-info label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .stat-info p {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $primary;
+  }
+
+  &.poder { background: #eef8ff; border-color: #b3d9f5; label { color: $accent; } }
+  &.fortaleza { background: #eafaf1; border-color: #a9dfbf; label { color: $success; } }
+  &.resistencia { background: #fef9e7; border-color: #f9e4b7; label { color: $warning; } }
+  &.debilidad { background: #fdedec; border-color: #f5b7b1; label { color: $danger; } }
+}
+
+// Acciones
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+
+  button {
+    flex: 1;
+    min-width: 130px;
+    padding: 12px 18px;
+    border-radius: 9px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: $transition;
+    border: none;
+  }
+
+  .btn-fav { background: #fdedec; color: #e74c3c; }
+  .btn-fav.active { background: #e74c3c; color: #fff; }
+  .btn-edit { background: #eef8ff; color: #3498db; }
+  .btn-save { background: #27ae60; color: #fff; }
+  .btn-secondary { background: #f5f6fa; color: #555; }
+  .btn-delete-modal { background: #fdedec; color: #e74c3c; border: 1.5px solid #f5b7b1 !important; }
+  .btn-delete-modal:hover { background: #e74c3c; color: #fff; border-color: #e74c3c !important; }
+  
+  .btn-checkout-modal {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(245, 124, 0, 0.25);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(245, 124, 0, 0.4);
+    }
+  }
+
+  .btn-checkout-modal-disabled {
+    background: #cfd8dc !important;
+    color: #90a4ae !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.commerce-info-row {
+  display: flex;
+  justify-content: space-around;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 24px;
+  border: 1px solid #e9ecef;
+
+  .info-block-price, .info-block-stock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .label {
+      font-size: 0.8rem;
+      color: #6c757d;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .value-price {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: #1a237e;
+    }
+
+    .value-stock {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #2e7d32;
+
+      &.no-stock {
+        color: #d32f2f;
+      }
+    }
+  }
+}
+
+

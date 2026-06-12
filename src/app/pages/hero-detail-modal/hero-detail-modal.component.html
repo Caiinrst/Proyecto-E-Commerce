@@ -1,0 +1,151 @@
+@if (hero) {
+<div class="modal-backdrop" (click)="onBackdropClick($event)">
+  <div class="modal-panel" role="dialog" aria-modal="true" [attr.aria-label]="hero.nombre">
+
+    <!-- Header -->
+    <div class="modal-hero-header">
+      <img [src]="hero.imagen_url ? 'assets/images/' + (hero.imagen_url.startsWith('/') ? hero.imagen_url.substring(1) : hero.imagen_url) : 'assets/images/Placeholder.png'" [alt]="hero.nombre" class="hero-portrait" (error)="onImgError($event)" />
+      <div class="header-overlay"></div>
+      <button class="btn-close" (click)="close()" aria-label="Cerrar">✕</button>
+      <div class="hero-title-block">
+        <h2>{{ editMode ? '✏️ Editando Mecha' : hero.nombre }}</h2>
+        <span class="hero-id-badge">#{{ hero.id }}</span>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <!-- Vista normal -->
+      @if (!editMode) {
+        <!-- Especificaciones Técnicas del Robot -->
+        <div class="stats-grid">
+          <div class="stat-card poder">
+            <span class="stat-icon">⚡</span>
+            <div class="stat-info">
+              <label>Armamento / Poder</label>
+              <p>{{ hero.poder }}</p>
+            </div>
+          </div>
+          <div class="stat-card fortaleza">
+            <span class="stat-icon">🛡️</span>
+            <div class="stat-info">
+              <label>Ventajas Tácticas</label>
+              <p>{{ hero.fortaleza || 'Ninguna registrada' }}</p>
+            </div>
+          </div>
+          <div class="stat-card resistencia">
+            <span class="stat-icon">💪</span>
+            <div class="stat-info">
+              <label>Resistencia Estructural</label>
+              <p>{{ hero.resistencia || 'Ninguna registrada' }}</p>
+            </div>
+          </div>
+          <div class="stat-card debilidad">
+            <span class="stat-icon">⚠️</span>
+            <div class="stat-info">
+              <label>Fallas de Diseño / Puntos Débiles</label>
+              <p>{{ hero.debilidad || 'Ninguna registrada' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fila de E-Commerce (Precio y Stock) -->
+        <div class="commerce-info-row">
+          <div class="info-block-price">
+            <span class="label">Precio Coleccionista</span>
+            <span class="value-price">{{ hero.precio | currency:'USD' }}</span>
+          </div>
+          <div class="info-block-stock">
+            <span class="label">Disponibilidad Hangar</span>
+            <span class="value-stock" [class.no-stock]="hero.stock <= 0">
+              {{ hero.stock > 0 ? hero.stock + ' unidades' : 'AGOTADO' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="modal-actions">
+          @if (hero.stock > 0) {
+            <button class="btn-checkout-modal" (click)="addToCartFromModal()">
+              🛒 Agregar al Carrito
+            </button>
+          } @else {
+            <button class="btn-checkout-modal-disabled" disabled>
+              ❌ Agotado
+            </button>
+          }
+
+          <button class="btn-fav" (click)="toggleFav()" [class.active]="hero.esFavorito">
+            {{ hero.esFavorito ? '❤️ Favorito' : '🤍 Añadir Favorito' }}
+          </button>
+
+          @if (isLoggedIn) {
+            <button class="btn-edit" (click)="enterEditMode()">✏️ Editar Mecha</button>
+            <button class="btn-delete-modal" (click)="deleteHero()">🗑️ Eliminar Mecha</button>
+          }
+          <button class="btn-secondary" (click)="close()">Cerrar</button>
+        </div>
+      }
+
+      <!-- Modo edición -->
+      @if (editMode) {
+        <form (ngSubmit)="saveChanges()" #editForm="ngForm" class="edit-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre del Mecha</label>
+              <input type="text" [(ngModel)]="editData.nombre" name="nombre" required />
+            </div>
+            <div class="form-group">
+              <label>Armamento / Poder</label>
+              <input type="text" [(ngModel)]="editData.poder" name="poder" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ventajas Tácticas (Fortaleza)</label>
+              <input type="text" [(ngModel)]="editData.fortaleza" name="fortaleza" />
+            </div>
+            <div class="form-group">
+              <label>Resistencia Estructural</label>
+              <input type="text" [(ngModel)]="editData.resistencia" name="resistencia" />
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Fallas de Diseño (Debilidad)</label>
+            <input type="text" [(ngModel)]="editData.debilidad" name="debilidad" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Precio ($ USD)</label>
+              <input type="number" step="0.01" [(ngModel)]="editData.precio" name="precio" required />
+            </div>
+            <div class="form-group">
+              <label>Existencias (Stock)</label>
+              <input type="number" [(ngModel)]="editData.stock" name="stock" required />
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Imagen (Nombre del archivo)</label>
+            <input type="text" [(ngModel)]="editData.imagen_url" name="imagen_url" required />
+            <small>Ejemplo: gipsy_danger.png (El archivo debe estar en assets/images/)</small>
+          </div>
+
+          <!-- Actions edición -->
+          <div class="modal-actions">
+            <button type="submit" class="btn-save" [disabled]="!editForm.valid || saving">
+              {{ saving ? '⏳ Guardando...' : '💾 Guardar Cambios' }}
+            </button>
+            <button type="button" class="btn-secondary" (click)="cancelEdit()">Cancelar</button>
+          </div>
+        </form>
+      }
+
+    </div>
+  </div>
+</div>
+}

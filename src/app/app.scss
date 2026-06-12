@@ -1,0 +1,216 @@
+.navbar {
+  background: linear-gradient(90deg, #283593, #3f51b5, #5c6bc0);
+  color: white;
+  padding: 0 25px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1300px;
+    margin: 0 auto;
+    height: 65px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
+
+    .icon {
+      font-size: 2.2rem;
+    }
+
+    &:hover {
+      transform: scale(1.08) rotate(-3deg);
+      text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  .menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .menu-item {
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: background 0.25s, transform 0.25s;
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    &:hover, &.active {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+  }
+
+  .cart-btn-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: background 0.25s, transform 0.25s;
+    font-size: 0.95rem;
+    font-weight: 500;
+    position: relative;
+
+    &:hover, &.active {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+  }
+
+  .cart-badge {
+    background: #ff3d00;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 7px;
+    border-radius: 20px;
+    min-width: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-nav {
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.25s, transform 0.25s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+  }
+
+  .btn-login {
+    background: linear-gradient(90deg, #ff9800, #f57c00);
+    color: white;
+    border: none;
+    padding: 9px 18px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: transform 0.25s, background 0.3s;
+
+    &:hover {
+      transform: scale(1.08);
+      background: linear-gradient(90deg, #f57c00, #ef6c00);
+    }
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .user-welcome {
+    font-size: 0.9rem;
+    opacity: 0.95;
+    font-style: italic;
+  }
+
+  .btn-logout {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.25s, transform 0.25s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+  }
+}
+
+.content-area {
+  padding: 25px;
+  max-width: 1300px;
+  margin: 0 auto;
+  min-height: calc(100vh - 150px);
+  animation: fadeIn 0.6s ease;
+}
+
+.main-footer {
+  background: #1c2833;
+  color: #f5f5f5;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  border-top: 4px solid #3f51b5;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.3);
+
+  p {
+    margin: 5px 0;
+    opacity: 0.85;
+  }
+}
+
+.comic-toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 10000;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+             bounce 1s ease infinite alternate;
+}
+
+.comic-content {
+  background: #fff;
+  color: #000;
+  border: 4px solid #000;
+  padding: 15px 25px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: 'Arial Black', sans-serif;
+  position: relative;
+  box-shadow: 8px 8px 0px #000;
+  border-radius: 8px;
+}
+
+.success .comic-content { background: #2ecc71; color: white; border-color: #27ae60; }
+.error .comic-content { background: #e74c3c; color: white; border-color: #c0392b; }
+.info .comic-content { background: #f1c40f; color: black; border-color: #d4ac0d; }
+
+@keyframes popIn {
+  0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,139 @@
+/* --- Layout general --- */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #f0f4ff, #e6f7ff);
+  color: #333;
+}
+
+header {
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  color: white;
+  padding: 25px;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* --- Formulario --- */
+.form-container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 750px;
+  margin: 40px auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-container input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border 0.3s;
+}
+
+.form-container input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.3);
+}
+
+.form-container button {
+  grid-column: span 2;
+  background: linear-gradient(90deg, #28a745, #20c997);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.form-container button:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, #218838, #17a589);
+}
+
+/* --- Tarjetas --- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto 50px;
+  padding: 0 20px;
+}
+
+.hero-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.hero-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.hero-card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  background: #f9f9f9;
+}
+
+.hero-content {
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.hero-content h3 {
+  margin: 10px 0;
+  color: #007bff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.hero-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* --- Botones --- */
+.btn-edit {
+  background: linear-gradient(90deg, #007bff, #00a2ff);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.btn-delete {
+  background: linear-gradient(90deg, #dc3545, #ff4d4d);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}

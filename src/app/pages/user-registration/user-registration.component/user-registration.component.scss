@@ -1,0 +1,126 @@
+.registration-container {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 40px;
+  background: linear-gradient(135deg, #ffffff, #f9f9ff);
+  border-radius: 14px;
+  box-shadow: 0 14px 35px rgba(0,0,0,0.2);
+  text-align: center;
+  border-top: 6px solid #3f51b5;
+
+  h2 {
+    color: #3f51b5;
+    margin-bottom: 12px;
+    font-weight: bold;
+    font-size: 1.8rem;
+    text-shadow: 1px 1px 3px rgba(63,81,181,0.3);
+  }
+
+  p {
+    color: #555;
+    margin-bottom: 28px;
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+}
+
+.hero-form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 22px;
+
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 0 12px;
+    background: #fafafa;
+    transition: border-color 0.3s, box-shadow 0.3s;
+
+    .icon {
+      margin-right: 10px;
+      font-size: 1.3rem;
+      color: #3f51b5;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: transparent;
+    }
+
+    &:focus-within {
+      border-color: #3f51b5;
+      box-shadow: 0 0 6px rgba(63,81,181,0.4);
+    }
+  }
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(90deg, #3f51b5, #5c6bc0);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.25s, background 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+    background: linear-gradient(90deg, #283593, #3f51b5);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  }
+
+  &:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+  }
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 6px;
+  display: block;
+  font-weight: 500;
+}
+
+.feedback {
+  margin-top: 22px;
+  padding: 14px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  animation: fadeIn 0.5s ease;
+}
+
+.msg-success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.msg-error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
