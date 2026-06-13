@@ -9,6 +9,6 @@ export default `<!doctype html>
 <style>body{font-family:Segoe UI,sans-serif;margin:0;background:linear-gradient(135deg,#f0f4ff,#e6f7ff);color:#333}</style><link rel="stylesheet" href="styles-KKKNFT6X.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-KKKNFT6X.css"></noscript></head>
 <body ngcm="">
   <app-root></app-root>
-<script src="main-UPI5LY7C.js" type="module"></script></body>
+<script src="main-CUMKBALK.js" type="module"></script></body>
 </html>
 `;

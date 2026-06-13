@@ -1,6 +1,6 @@
 <div class="registration-container">
-  <h2 class="registration-title">🦸‍♀️ Registro de Héroe</h2>
-  <p class="registration-subtitle">Crea tu cuenta para unirte al universo de superhéroes.</p>
+  <h2 class="registration-title">🤖 Registro de Piloto</h2>
+  <p class="registration-subtitle">Crea tu cuenta para acceder al hangar y personalizar tus Mechas.</p>
 
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="hero-form">
     <!-- Nombre -->
@@ -8,7 +8,7 @@
       <label>Nombre Completo</label>
       <div class="input-wrapper">
         <span class="icon">👤</span>
-        <input type="text" formControlName="nombre" placeholder="Ej. Bruce Wayne">
+        <input type="text" formControlName="nombre" placeholder="Ej. Shinji Ikari">
       </div>
       <span class="error" *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
         ⚠️ El nombre es requerido (mín. 3 caracteres).
@@ -20,7 +20,7 @@
       <label>Correo Electrónico</label>
       <div class="input-wrapper">
         <span class="icon">📧</span>
-        <input type="email" formControlName="email" placeholder="heroe@justiceleague.com">
+        <input type="email" formControlName="email" placeholder="piloto@mechastore.com">
       </div>
       <span class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
         ⚠️ Ingresa un correo válido.

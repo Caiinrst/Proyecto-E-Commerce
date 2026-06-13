@@ -1,9 +1,9 @@
 <div class="login-page">
   <div class="login-card">
     <div class="login-header">
-      <span class="shield-icon">🛡️</span>
-      <h2>Acceso a la Atalaya</h2>
-      <p>Ingresa tus credenciales de héroe</p>
+      <span class="shield-icon">🤖</span>
+      <h2>Acceso al Hangar</h2>
+      <p>Ingresa tus credenciales de piloto</p>
     </div>
 
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
@@ -11,7 +11,7 @@
         <label>Email</label>
         <div class="input-wrapper">
           <span class="icon">📧</span>
-          <input type="email" formControlName="email" placeholder="heroe@liga.com">
+          <input type="email" formControlName="email" placeholder="piloto@mechastore.com">
         </div>
       </div>
 

@@ -52,11 +52,11 @@ return `assets/images/${imageName}`;
 onSubmit() {
 this.heroService.createHero(this.heroData).subscribe({
 next: () => {
-this.notify.show(`¡${this.heroData.nombre} ha sido reclutado! 🛡️`, 'success');
+this.notify.show(`¡${this.heroData.nombre} ha sido añadido al catálogo! 🤖`, 'success');
 this.router.navigate(['/catalog']); // Redirigir al catálogo
 },
 error: (err) => {
-this.notify.show('Error al registrar al héroe. Revisa los datos.', 'error');
+this.notify.show('Error al registrar el Mecha. Revisa los datos.', 'error');
 console.error('Error en el servidor:', err);
 }
 });
